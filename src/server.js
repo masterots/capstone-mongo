@@ -26,17 +26,6 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-// app.get('/authors', async function(req, res) {
-//   let options = {};
-//   if (req.query.author) {
-//     options = {
-//       'name': req.query.author
-//     }
-//   }
-//   let authors = await Author.find(options).exec();
-//   res.json(authors);
-// });
-
 app.get('/books/isbn', async function(req, res) {
   let isbn = req.query.isbn;
   if (!isbn) {
