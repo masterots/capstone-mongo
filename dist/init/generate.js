@@ -1,23 +1,30 @@
 'use strict';
 
+var _mongodb = require('mongodb');
+
+var _authors = require('./authors');
+
+var _authors2 = _interopRequireDefault(_authors);
+
+var _books = require('./books');
+
+var _books2 = _interopRequireDefault(_books);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 require("babel-polyfill");
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/capstone-mongo');
-var db = mongoose.connection;
-var authorGenerator = require('./authors');
-var bookGenerator = require('./books');
+var url = 'mongodb://localhost:27017/capstone-mongo';
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function _callee() {
+_mongodb.MongoClient.connect(url).then(function _callee(conn) {
   var authors, books;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
         _context.prev = 0;
-        authors = authorGenerator.createAuthors();
+        authors = _authors2.default.createAuthors();
         _context.next = 4;
-        return regeneratorRuntime.awrap(bookGenerator.createBooks(authors));
+        return regeneratorRuntime.awrap(_books2.default.createBooks(conn, authors));
 
       case 4:
         books = _context.sent;

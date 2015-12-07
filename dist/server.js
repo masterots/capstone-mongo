@@ -79,23 +79,23 @@ app.get('/books/isbn', function _callee(req, res) {
   }, null, this);
 });
 
-app.get('/books/author', function _callee2(req, res) {
-  var author, books;
+app.get('/books/isbnexplain', function _callee2(req, res) {
+  var isbn, books;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) switch (_context2.prev = _context2.next) {
       case 0:
-        author = req.query.author;
+        isbn = req.query.isbn;
 
-        if (author) {
+        if (isbn) {
           _context2.next = 3;
           break;
         }
 
-        return _context2.abrupt('return', missingQueryArg('author', res));
+        return _context2.abrupt('return', missingQueryArg('isbn', res));
 
       case 3:
         _context2.next = 5;
-        return regeneratorRuntime.awrap(_books2.default.findBooksByAuthor(connection, author));
+        return regeneratorRuntime.awrap(_books2.default.findBookByISBNExplained(connection, isbn));
 
       case 5:
         books = _context2.sent;
@@ -109,23 +109,23 @@ app.get('/books/author', function _callee2(req, res) {
   }, null, this);
 });
 
-app.get('/books/publisher', function _callee3(req, res) {
-  var publisher, books;
+app.get('/books/author', function _callee3(req, res) {
+  var author, books;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) switch (_context3.prev = _context3.next) {
       case 0:
-        publisher = req.query.publisher;
+        author = req.query.author;
 
-        if (publisher) {
+        if (author) {
           _context3.next = 3;
           break;
         }
 
-        return _context3.abrupt('return', missingQueryArg('publisher', res));
+        return _context3.abrupt('return', missingQueryArg('author', res));
 
       case 3:
         _context3.next = 5;
-        return regeneratorRuntime.awrap(_books2.default.findBooksByPublisher(connection, publisher));
+        return regeneratorRuntime.awrap(_books2.default.findBooksByAuthor(connection, author));
 
       case 5:
         books = _context3.sent;
@@ -139,23 +139,23 @@ app.get('/books/publisher', function _callee3(req, res) {
   }, null, this);
 });
 
-app.get('/books/title', function _callee4(req, res) {
-  var title, books;
+app.get('/books/publisher', function _callee4(req, res) {
+  var publisher, books;
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) switch (_context4.prev = _context4.next) {
       case 0:
-        title = req.query.title;
+        publisher = req.query.publisher;
 
-        if (title) {
+        if (publisher) {
           _context4.next = 3;
           break;
         }
 
-        return _context4.abrupt('return', missingQueryArg('title', res));
+        return _context4.abrupt('return', missingQueryArg('publisher', res));
 
       case 3:
         _context4.next = 5;
-        return regeneratorRuntime.awrap(_books2.default.findBooksByTitle(connection, title));
+        return regeneratorRuntime.awrap(_books2.default.findBooksByPublisher(connection, publisher));
 
       case 5:
         books = _context4.sent;
@@ -169,33 +169,43 @@ app.get('/books/title', function _callee4(req, res) {
   }, null, this);
 });
 
-app.get('/reports/countBooksReleasedPerYear', function _callee5(req, res) {
-  var data;
+app.get('/books/title', function _callee5(req, res) {
+  var title, books;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) switch (_context5.prev = _context5.next) {
       case 0:
-        _context5.next = 2;
-        return regeneratorRuntime.awrap(_books4.default.countBooksReleasedPerYear(connection));
+        title = req.query.title;
 
-      case 2:
-        data = _context5.sent;
+        if (title) {
+          _context5.next = 3;
+          break;
+        }
 
-        res.json(data);
+        return _context5.abrupt('return', missingQueryArg('title', res));
 
-      case 4:
+      case 3:
+        _context5.next = 5;
+        return regeneratorRuntime.awrap(_books2.default.findBooksByTitle(connection, title));
+
+      case 5:
+        books = _context5.sent;
+
+        res.json(books);
+
+      case 7:
       case 'end':
         return _context5.stop();
     }
   }, null, this);
 });
 
-app.get('/reports/countBooksReleasedPerYearPerPublisher', function _callee6(req, res) {
+app.get('/reports/countBooksReleasedPerYear', function _callee6(req, res) {
   var data;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) switch (_context6.prev = _context6.next) {
       case 0:
         _context6.next = 2;
-        return regeneratorRuntime.awrap(_books4.default.countBooksReleasedPerYearPerPublisher(connection));
+        return regeneratorRuntime.awrap(_books4.default.countBooksReleasedPerYear(connection));
 
       case 2:
         data = _context6.sent;
@@ -209,13 +219,13 @@ app.get('/reports/countBooksReleasedPerYearPerPublisher', function _callee6(req,
   }, null, this);
 });
 
-app.get('/reports/booksByAuthor', function _callee7(req, res) {
+app.get('/reports/countBooksReleasedPerYearPerPublisher', function _callee7(req, res) {
   var data;
   return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) switch (_context7.prev = _context7.next) {
       case 0:
         _context7.next = 2;
-        return regeneratorRuntime.awrap(_books4.default.booksByAuthor(connection));
+        return regeneratorRuntime.awrap(_books4.default.countBooksReleasedPerYearPerPublisher(connection));
 
       case 2:
         data = _context7.sent;
@@ -229,22 +239,42 @@ app.get('/reports/booksByAuthor', function _callee7(req, res) {
   }, null, this);
 });
 
-app.get('/reports/avgNumAuthorsPerBookPerYear', function _callee8(req, res) {
-  var books;
+app.get('/reports/booksByAuthor', function _callee8(req, res) {
+  var data;
   return regeneratorRuntime.async(function _callee8$(_context8) {
     while (1) switch (_context8.prev = _context8.next) {
       case 0:
         _context8.next = 2;
+        return regeneratorRuntime.awrap(_books4.default.booksByAuthor(connection));
+
+      case 2:
+        data = _context8.sent;
+
+        res.json(data);
+
+      case 4:
+      case 'end':
+        return _context8.stop();
+    }
+  }, null, this);
+});
+
+app.get('/reports/avgNumAuthorsPerBookPerYear', function _callee9(req, res) {
+  var books;
+  return regeneratorRuntime.async(function _callee9$(_context9) {
+    while (1) switch (_context9.prev = _context9.next) {
+      case 0:
+        _context9.next = 2;
         return regeneratorRuntime.awrap(_books4.default.avgNumAuthorsPerBookPerYear(connection));
 
       case 2:
-        books = _context8.sent;
+        books = _context9.sent;
 
         res.json(books);
 
       case 4:
       case 'end':
-        return _context8.stop();
+        return _context9.stop();
     }
   }, null, this);
 });

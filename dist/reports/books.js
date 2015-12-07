@@ -110,7 +110,7 @@ function booksByAuthor(db) {
             _id: "$authors.name",
             books: {
               $push: {
-                title: "$title",
+                title: "$title".toString(),
                 isbn: "$ISBN"
               }
             }

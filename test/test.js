@@ -48,7 +48,7 @@ describe('Books', function() {
 
   it('should return a book by author', async function(done) {
     try {
-      var book = await books.findBooksByAuthor(connection, 'Stephen King');
+      var book = await books.findBooksByAuthor(connection, 'Stephen');
       book[0].title.should.equal('The Dark Tower: The Gunslinger');
       done();
     }

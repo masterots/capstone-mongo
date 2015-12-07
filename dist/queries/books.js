@@ -2,7 +2,7 @@
 
 require("babel-polyfill");
 
-function findBookByISBN(db, ISBN) {
+function findBookByISBN(db, ISBN, explain) {
   var book;
   return regeneratorRuntime.async(function findBookByISBN$(_context) {
     while (1) switch (_context.prev = _context.next) {
@@ -13,7 +13,7 @@ function findBookByISBN(db, ISBN) {
 
       case 3:
         book = _context.sent;
-        return _context.abrupt('return', book || []);
+        return _context.abrupt('return', book || {});
 
       case 7:
         _context.prev = 7;
@@ -27,18 +27,18 @@ function findBookByISBN(db, ISBN) {
   }, null, this, [[0, 7]]);
 }
 
-function findBooksByTitle(db, title) {
-  var books;
-  return regeneratorRuntime.async(function findBooksByTitle$(_context2) {
+function findBookByISBNExplained(db, ISBN, explain) {
+  var book;
+  return regeneratorRuntime.async(function findBookByISBNExplained$(_context2) {
     while (1) switch (_context2.prev = _context2.next) {
       case 0:
         _context2.prev = 0;
         _context2.next = 3;
-        return regeneratorRuntime.awrap(db.collection('books').find({ 'title': title }).sort({ 'releaseDate': 1 }));
+        return regeneratorRuntime.awrap(db.collection('books').find({ 'ISBN': ISBN }).explain());
 
       case 3:
-        books = _context2.sent;
-        return _context2.abrupt('return', books ? books.toArray() : []);
+        book = _context2.sent;
+        return _context2.abrupt('return', book || {});
 
       case 7:
         _context2.prev = 7;
@@ -52,14 +52,14 @@ function findBooksByTitle(db, title) {
   }, null, this, [[0, 7]]);
 }
 
-function findBooksByAuthor(db, authorName) {
+function findBooksByTitle(db, title) {
   var books;
-  return regeneratorRuntime.async(function findBooksByAuthor$(_context3) {
+  return regeneratorRuntime.async(function findBooksByTitle$(_context3) {
     while (1) switch (_context3.prev = _context3.next) {
       case 0:
         _context3.prev = 0;
         _context3.next = 3;
-        return regeneratorRuntime.awrap(db.collection('books').find({ 'authors.name': authorName }).sort({ 'releaseDate': 1 }));
+        return regeneratorRuntime.awrap(db.collection('books').find({ 'title': title }).sort({ 'title': 1 }));
 
       case 3:
         books = _context3.sent;
@@ -77,14 +77,14 @@ function findBooksByAuthor(db, authorName) {
   }, null, this, [[0, 7]]);
 }
 
-function findBooksByPublisher(db, publisherName) {
+function findBooksByAuthor(db, authorName) {
   var books;
-  return regeneratorRuntime.async(function findBooksByPublisher$(_context4) {
+  return regeneratorRuntime.async(function findBooksByAuthor$(_context4) {
     while (1) switch (_context4.prev = _context4.next) {
       case 0:
         _context4.prev = 0;
         _context4.next = 3;
-        return regeneratorRuntime.awrap(db.collection('books').find({ 'publisherName': publisherName }).sort({ 'releaseDate': 1 }));
+        return regeneratorRuntime.awrap(db.collection('books').find({ $text: { $search: authorName } }).sort({ 'title': 1 }));
 
       case 3:
         books = _context4.sent;
@@ -102,8 +102,34 @@ function findBooksByPublisher(db, publisherName) {
   }, null, this, [[0, 7]]);
 }
 
+function findBooksByPublisher(db, publisherName) {
+  var books;
+  return regeneratorRuntime.async(function findBooksByPublisher$(_context5) {
+    while (1) switch (_context5.prev = _context5.next) {
+      case 0:
+        _context5.prev = 0;
+        _context5.next = 3;
+        return regeneratorRuntime.awrap(db.collection('books').find({ 'publisherName': publisherName }).sort({ 'title': 1 }));
+
+      case 3:
+        books = _context5.sent;
+        return _context5.abrupt('return', books ? books.toArray() : []);
+
+      case 7:
+        _context5.prev = 7;
+        _context5.t0 = _context5['catch'](0);
+        throw _context5.t0;
+
+      case 10:
+      case 'end':
+        return _context5.stop();
+    }
+  }, null, this, [[0, 7]]);
+}
+
 module.exports = {
   findBookByISBN: findBookByISBN,
+  findBookByISBNExplained: findBookByISBNExplained,
   findBooksByTitle: findBooksByTitle,
   findBooksByAuthor: findBooksByAuthor,
   findBooksByPublisher: findBooksByPublisher

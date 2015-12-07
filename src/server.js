@@ -9,7 +9,6 @@ let app = express();
 let url = 'mongodb://localhost:27017/capstone-mongo';
 let connection = null;
 
-
 function missingQueryArg(arg, res) {
   res.json({
     error: `missing required argument: ${arg}`
@@ -43,6 +42,15 @@ app.get('/books/isbn', async function(req, res) {
     return missingQueryArg('isbn', res);
   }
   let books = await queries.findBookByISBN(connection, isbn);
+  res.json(books);
+});
+
+app.get('/books/isbnexplain', async function(req, res) {
+  let isbn = req.query.isbn;
+  if (!isbn) {
+    return missingQueryArg('isbn', res);
+  }
+  let books = await queries.findBookByISBNExplained(connection, isbn);
   res.json(books);
 });
 

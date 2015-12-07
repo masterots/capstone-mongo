@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "gulp && node dist/init/test-data-generator.js && mocha --compilers js:babel-core/register",
-    "generate": "gulp && node dist/init/generate.js",
-    "start": "gulp && node dist/server.js"
+    "test": "node dist/init/test-data-generator.js && mocha --compilers js:babel-core/register",
+    "generate": "node dist/init/generate.js",
+    "start": "node dist/server.js",
+    "build": "gulp"
   },
   "author": "",
   "license": "ISC",

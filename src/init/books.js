@@ -1,20 +1,23 @@
-import {Book} from '../schemas/book';
-// import authorGenerator from './authors';
 import Chance from 'chance';
 import _ from 'lodash';
 
 var chance = new Chance(12345);
 
-async function cleanBooks() {
-  return await Book.remove({});
+async function cleanBooks(db) {
+  return await db.collection('books').remove({});
 }
 
-async function createBooks(authors) {
-  await cleanBooks();
+async function dropIndexes(db) {
+  return await db.collection('books').dropIndexes();
+}
+
+async function createBooks(db, authors) {
+  await cleanBooks(db);
+  await dropIndexes(db);
   var max = 9;
   var min = 1;
-  var numBooksToMake = 20;
-  var numTimesToMakeBooks = 1;
+  var numBooksToMake = 100;
+  var numTimesToMakeBooks = 5000;
 
   var publishers = [];
   for (var i = 0; i < 8; i++) {
@@ -26,7 +29,7 @@ async function createBooks(authors) {
       for (var i = 0; i < numBooksToMake; i++) {
         var selectedAuthors = _.sample(authors, _.random(min, max));
         var year = chance.integer({min: 1999, max: 2014});
-        var book = new Book({
+        var book = {
           title: chance.sentence({words: 5}),
           authors: selectedAuthors,
           ISBN: chance.string({pool: '1234567890-', length: 13}),
@@ -34,11 +37,19 @@ async function createBooks(authors) {
           firstPublishCountry: chance.country(),
           publisherName: _.sample(publishers),
           description: chance.paragraph({sentences: 2})
-        });
+        };
         books.push(book);
       }
       console.log(`${numBooksToMake} books created`);
-      await Book.create(books);
+      await db.collection('books').insertMany(books);
+      db.collection('books').createIndex({
+                             'title': 'text',
+                             'authors.name': 'text',
+                             'publisherName': 'text'
+                           });
+      db.collection('books').createIndex({
+                             'ISBN': 1
+                           });
       console.log(`${numBooksToMake} books saved: loop #${outer}`);
       books = [];
     }

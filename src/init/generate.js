@@ -1,21 +1,21 @@
 require("babel-polyfill");
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/capstone-mongo');
-var db = mongoose.connection;
-var authorGenerator = require('./authors');
-var bookGenerator = require('./books');
+import {MongoClient} from 'mongodb';
+import authorGenerator from './authors';
+import bookGenerator from './books';
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', async function() {
-  try {
-    let authors = authorGenerator.createAuthors();
-    let books = await bookGenerator.createBooks(authors);
-    console.log('good to go');
-    process.exit(0);
-  }
-  catch (e) {
-    console.log('main blew up', e);
-    process.exit(1);
-  }
-});
+let url = 'mongodb://localhost:27017/capstone-mongo';
+
+MongoClient.connect(url)
+  .then(async function(conn) {
+    try {
+      let authors = authorGenerator.createAuthors();
+      let books = await bookGenerator.createBooks(conn, authors);
+      console.log('good to go');
+      process.exit(0);
+    }
+    catch (e) {
+      console.log('main blew up', e);
+      process.exit(1);
+    }
+  });

@@ -1,0 +1,88 @@
+{
+  "queryPlanner": {
+    "plannerVersion": 1,
+    "namespace": "capstone-mongo.books",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "ISBN": {
+        "$eq": "7-79076558886"
+      }
+    },
+    "winningPlan": {
+      "stage": "FETCH",
+      "inputStage": {
+        "stage": "IXSCAN",
+        "keyPattern": {
+          "ISBN": 1
+        },
+        "indexName": "ISBN_1",
+        "isMultiKey": false,
+        "direction": "forward",
+        "indexBounds": {
+          "ISBN": [
+            "[\"7-79076558886\", \"7-79076558886\"]"
+          ]
+        }
+      }
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1,
+    "executionTimeMillis": 5,
+    "totalKeysExamined": 1,
+    "totalDocsExamined": 1,
+    "executionStages": {
+      "stage": "FETCH",
+      "nReturned": 1,
+      "executionTimeMillisEstimate": 0,
+      "works": 2,
+      "advanced": 1,
+      "needTime": 0,
+      "needFetch": 0,
+      "saveState": 0,
+      "restoreState": 0,
+      "isEOF": 1,
+      "invalidates": 0,
+      "docsExamined": 1,
+      "alreadyHasObj": 0,
+      "inputStage": {
+        "stage": "IXSCAN",
+        "nReturned": 1,
+        "executionTimeMillisEstimate": 0,
+        "works": 2,
+        "advanced": 1,
+        "needTime": 0,
+        "needFetch": 0,
+        "saveState": 0,
+        "restoreState": 0,
+        "isEOF": 1,
+        "invalidates": 0,
+        "keyPattern": {
+          "ISBN": 1
+        },
+        "indexName": "ISBN_1",
+        "isMultiKey": false,
+        "direction": "forward",
+        "indexBounds": {
+          "ISBN": [
+            "[\"7-79076558886\", \"7-79076558886\"]"
+          ]
+        },
+        "keysExamined": 1,
+        "dupsTested": 0,
+        "dupsDropped": 0,
+        "seenInvalidated": 0,
+        "matchTested": 0
+      }
+    },
+    "allPlansExecution": []
+  },
+  "serverInfo": {
+    "host": "masterots",
+    "port": 27017,
+    "version": "3.0.7",
+    "gitVersion": "nogitversion"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "queryPlanner": {
+    "plannerVersion": 1,
+    "namespace": "capstone-mongo.books",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "ISBN": {
+        "$eq": "7-79076558886"
+      }
+    },
+    "winningPlan": {
+      "stage": "COLLSCAN",
+      "filter": {
+        "ISBN": {
+          "$eq": "7-79076558886"
+        }
+      },
+      "direction": "forward"
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1,
+    "executionTimeMillis": 265,
+    "totalKeysExamined": 0,
+    "totalDocsExamined": 500000,
+    "executionStages": {
+      "stage": "COLLSCAN",
+      "filter": {
+        "ISBN": {
+          "$eq": "7-79076558886"
+        }
+      },
+      "nReturned": 1,
+      "executionTimeMillisEstimate": 50,
+      "works": 500002,
+      "advanced": 1,
+      "needTime": 500000,
+      "needFetch": 0,
+      "saveState": 3906,
+      "restoreState": 3906,
+      "isEOF": 1,
+      "invalidates": 0,
+      "direction": "forward",
+      "docsExamined": 500000
+    },
+    "allPlansExecution": []
+  },
+  "serverInfo": {
+    "host": "masterots",
+    "port": 27017,
+    "version": "3.0.7",
+    "gitVersion": "nogitversion"
+  }
+}
