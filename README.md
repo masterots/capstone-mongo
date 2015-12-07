@@ -24,27 +24,28 @@ Generates test data and runs tests.
 ### npm start
 Will run web server at `http://localhost:3000`
 URLS:
-`/books/isbn`
+
+#### `/books/isbn`
 add `?isbn=<isbn number>` to search for a book by isbn
 
-`/books/isbnexplain`
+#### `/books/isbnexplain`
 add `?isbn=<isbn number>` to search for a book by isbn.
 returns mongo's `explain` results
 
-`/books/author`
+#### `/books/author`
 add `?author=<author>` to search for a book by author. accepts partial name
 
-`/books/publisher`
+#### `/books/publisher`
 add `?publisher=<publisher>` to search for a book by publisher. accepts partial name
 
-`/books/title`
+#### `/books/title`
 add `?title=<title>` to search for a book by title. accepts partial title
 
-`/reports/countBooksReleasedPerYear`
+#### `/reports/countBooksReleasedPerYear`
 
-`/reports/countBooksReleasedPerYearPerPublisher`
+#### `/reports/countBooksReleasedPerYearPerPublisher`
 
-`/reports/booksByAuthor`
+#### `/reports/booksByAuthor`
 
-`/reports/avgNumAuthorsPerBookPerYear`
+#### `/reports/avgNumAuthorsPerBookPerYear`
 
