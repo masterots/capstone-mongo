@@ -1,2 +1,10 @@
-### Get book by ISBN
-    db.books.find({'ISBN': '6843214607770'})
+# Capstone project for HudlU Mongo
+
+## Prerequisites
+    node
+    mocha
+    mongo
+
+## Steps
+clone
+npm install

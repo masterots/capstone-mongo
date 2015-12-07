@@ -1,7 +1,8 @@
 require("babel-polyfill");
 
 import {MongoClient} from 'mongodb';
-let url = 'mongodb://localhost:27017/capstone-mongo-test-data';
+var config = require('../../database-config.json');
+var url = config.test;
 
 async function cleanBooks(db) {
   try {

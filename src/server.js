@@ -6,7 +6,8 @@ import queries from './queries/books';
 import reports from './reports/books';
 
 let app = express();
-let url = 'mongodb://localhost:27017/capstone-mongo';
+var config = require('../database-config.json');
+var url = config.prod;
 let connection = null;
 
 function missingQueryArg(arg, res) {

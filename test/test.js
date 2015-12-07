@@ -1,6 +1,7 @@
 require("babel-polyfill");
+var config = require('../database-config.json');
+var url = config.test;
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/capstone-mongo-test-data';
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");

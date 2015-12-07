@@ -4,7 +4,8 @@ import {MongoClient} from 'mongodb';
 import authorGenerator from './authors';
 import bookGenerator from './books';
 
-let url = 'mongodb://localhost:27017/capstone-mongo';
+var config = require('../../database-config.json');
+var url = config.prod;
 
 MongoClient.connect(url)
   .then(async function(conn) {
