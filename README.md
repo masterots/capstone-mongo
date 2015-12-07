@@ -49,3 +49,11 @@ add `?title=<title>` to search for a book by title. accepts partial title
 
 #### `/reports/avgNumAuthorsPerBookPerYear`
 
+## Additional info
+`ISBN-Search-No-Index.json` and `ISBN-Search-Index.json` show the massive improvement in text search by ISBN over 500K documents
+when an index is added. I wasn't "seeing" any performance issues with my eyes, but the numbers absolutely speak for the improvements
+a simple index adds to a database.
+
+I did spend time attempting to get "corrupted" data working in my reports, but ultimately didn't feel like it was prudent to spend
+any more time on it without teammates. I had tried putting a date as a string on a book, and then convert it at aggregation time,
+but I was getting bad dates out of it. I'd like to spend more time investigating it, outside of this project.
